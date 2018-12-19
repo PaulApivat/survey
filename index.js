@@ -37,6 +37,8 @@ server.post('/api/features', (req , res) => {
     const feature = req.body;
     console.log('feature info', feature)
 
+    if (feature.model_id && feature.battery && feature.design && feature.useful && feature.speed && feature.weight) {
+
     db('features').insert(feature)
     .then(ids => {
         res.status(201).json(ids);
@@ -45,7 +47,12 @@ server.post('/api/features', (req , res) => {
         console.log(err)
         res.status(500).json({err: "Failed to insert Features"});
     })
-})
+
+    } else {
+        res.status(400).json({message: "status 400: missing model_id or one other model description"})
+    }
+
+});
 
 
 // GET /api/models
@@ -92,31 +99,31 @@ server.get('/api/models/:id', (req, res) => {
 
 // GET /api/features/:id
 // SELECT * FROM features WHERE id = '2'
-server.get('/api/features/:id', (req, res) => {
-    const {id} = req.params;
-    db('features').where('id', id)
-    .then(rows => {
-        res.json(rows)
-    })
-    .catch(err => {
-        console.log(err)
-        res.status(500).json({err: 'Failed to find specific (model) feature'});
-    })
-})
-
-// Experimental
-// ******* TRY GET /api/features/:model_id
-// server.get('/api/features/:model_id', (req, res) => {
-//     const {model_id} = req.params;
-//     db('features').where('model_id', model_id)
+// server.get('/api/features/:id', (req, res) => {
+//     const {id} = req.params;
+//     db('features').where('id', id)
 //     .then(rows => {
 //         res.json(rows)
 //     })
 //     .catch(err => {
 //         console.log(err)
-//         res.status(500).json({err: 'Failed to find specific feature for this particular model'});
+//         res.status(500).json({err: 'Failed to find specific (model) feature'});
 //     })
 // })
+
+// Experimental
+// ******* TRY GET /api/features/:model_id
+server.get('/api/features/:model_id', (req, res) => {
+    const {model_id} = req.params;
+    db('features').where('model_id', model_id)
+    .then(rows => {
+        res.json(rows)
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({err: 'Failed to find specific feature for this particular model'});
+    })
+})
 
 
 
