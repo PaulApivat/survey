@@ -104,6 +104,22 @@ server.get('/api/features/:id', (req, res) => {
     })
 })
 
+// ******* TRY GET /api/features/:model_id
+// server.get('/api/features/:model_id', (req, res) => {
+//     const {model_id} = req.params;
+//     db('features').where('model_id', model_id)
+//     .then(rows => {
+//         res.json(rows)
+//     })
+//     .catch(err => {
+//         console.log(err)
+//         res.status(500).json({err: 'Failed to find specific feature for this particular model'});
+//     })
+// })
+
+
+
+
 
 // DELETE /api/models/:id
 // DELETE FROM models WHERE id = 2;
