@@ -9,6 +9,10 @@ const dbConfig = require('./knexfile'); //require from knexfile.js
 const server = express();
 const db = knex(dbConfig.development)
 
+// CORS stuff
+const cors = require('cors')
+server.use(cors())
+
 //middleware
 server.use(express.json());
 server.use(helmet());
