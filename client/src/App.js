@@ -2,7 +2,29 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import axios from 'axios';
+
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      models: [],
+      features: []
+    }
+  }
+
+  componentDidMount(){
+    axios 
+    .get(`http://localhost:3000/api/features`)
+    .then(response => {
+      this.setState({ features: response.data })
+    })
+    .catch(err => {
+      console.log("Fail to GET models from local server", err)
+    })
+  }
+
+
   render() {
     return (
       <div className="App">
@@ -11,15 +33,16 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+        
         </header>
+        <div>
+            Models here:
+            {this.state.features.map(feature => {
+              return(
+                <h1> {feature.battery} </h1>
+              )
+            })}
+        </div>
       </div>
     );
   }
