@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ModelView from './ModelView'
+
 class ModelsList extends React.Component {
     constructor(){
         super();
@@ -10,7 +12,7 @@ class ModelsList extends React.Component {
             <div>
                 {this.props.models.map(model => {
                     return(
-                        <h1> {model.name} </h1>
+                        <ModelView model={model} handleDeleteModel={this.props.handleDeleteModel}/>
                     )
                 })}
             </div>

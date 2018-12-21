@@ -9,7 +9,6 @@ class Models extends React.Component{
         super();
         this.state = {
             models: [],
-            // name: '',
         }
     }
 
@@ -42,7 +41,23 @@ class Models extends React.Component{
         })
     }
 
-    
+    handleDeleteModel = id => {
+        axios 
+        .delete(`http://localhost:3000/api/models/${id}`)
+        .then(response => {
+            axios 
+            .get(`http://localhost:3000/api/models`)
+            .then(response => {
+                this.setState({ models: response.data })
+            })
+            .catch(err => {
+                console.log("Fail to GET models from local server", err)
+            }) 
+        })
+        .catch(err => {
+            console.log("Fail to Delete a Model from local server", err)
+        })
+    }
 
 
     render(){
@@ -50,7 +65,7 @@ class Models extends React.Component{
             <div>
                 <div>
                     List of Models here:
-                    <ModelsList models={this.state.models} />
+                    <ModelsList models={this.state.models} handleDeleteModel={this.handleDeleteModel}/>
                 </div>
                 <div>
                     Create Models Here:
