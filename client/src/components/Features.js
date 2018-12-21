@@ -26,7 +26,7 @@ class Features extends React.Component{
                 Features here:
                 {this.state.features.map(feature => {
                     return(
-                        <h1> {feature.battery} </h1>
+                        <h1> {feature.model_id} </h1>
                     )
                 })}
             </div>
