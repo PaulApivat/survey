@@ -1,47 +1,55 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import axios from 'axios';
+import Home from './components/Home';
+import About from './components/About';
+import Models from './components/Models';
+import Features from './components/Features';
+
+import { Route, Link } from 'react-router-dom'
+
+
 
 class App extends Component {
   constructor(){
     super();
-    this.state = {
-      models: [],
-      features: []
-    }
   }
 
-  componentDidMount(){
-    axios 
-    .get(`http://localhost:3000/api/features`)
-    .then(response => {
-      this.setState({ features: response.data })
-    })
-    .catch(err => {
-      console.log("Fail to GET models from local server", err)
-    })
-  }
+
 
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-        
+          <ul className="menu">
+            <li> <Link to="/home">Home</Link></li>
+            <li> <Link to="/about">About</Link></li>
+            <li> <Link to="/models">Models</Link></li>
+            <li> <Link to="/features">Features</Link></li>
+            <li>Logout</li>
+          </ul>
         </header>
-        <div>
-            Models here:
-            {this.state.features.map(feature => {
-              return(
-                <h1> {feature.battery} </h1>
-              )
-            })}
+
+        <div className="container">
+          <Route path="/home"
+            render={props => <Home/>}
+          />
+
+          <Route path="/about"
+            render={props => <About/>}
+          />
+
+          <Route path="/models"
+            render={props => <Models/>}
+          />
+
+          <Route path="/features"
+            render={props => <Features/>}
+          />
+
+
+
         </div>
       </div>
     );
@@ -49,3 +57,25 @@ class App extends Component {
 }
 
 export default App;
+
+// this.state = {
+//   models: [],
+//   features: []
+// }
+
+
+// componentDidMount(){
+//   axios 
+//   .get(`http://localhost:3000/api/features`)
+//   .then(response => {
+//     this.setState({ features: response.data })
+//   })
+//   .catch(err => {
+//     console.log("Fail to GET models from local server", err)
+//   })
+// }
+
+
+{/* <div>
+
+</div> */}
