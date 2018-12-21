@@ -57,25 +57,3 @@ class App extends Component {
 }
 
 export default App;
-
-// this.state = {
-//   models: [],
-//   features: []
-// }
-
-
-// componentDidMount(){
-//   axios 
-//   .get(`http://localhost:3000/api/features`)
-//   .then(response => {
-//     this.setState({ features: response.data })
-//   })
-//   .catch(err => {
-//     console.log("Fail to GET models from local server", err)
-//   })
-// }
-
-
-{/* <div>
-
-</div> */}
