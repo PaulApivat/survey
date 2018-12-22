@@ -5,6 +5,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Models from './components/Models';
 import Features from './components/Features';
+import UpdateModel from './components/UpdateModel';
 
 import { Route, Link } from 'react-router-dom'
 
@@ -43,6 +44,11 @@ class App extends Component {
           <Route path="/models"
             render={props => <Models/>}
           />
+
+          <Route exact path="/models/:id"
+            render={props => <UpdateModel/>}
+          />
+
 
           <Route path="/features"
             render={props => <Features/>}

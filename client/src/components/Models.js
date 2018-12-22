@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import ModelsList from './ModelsList'
 import CreateModel from './CreateModel'
+import UpdateModel from './UpdateModel'
 
 class Models extends React.Component{
     constructor(){
@@ -59,18 +60,45 @@ class Models extends React.Component{
         })
     }
 
+    handleUpdateModel = updatedModel => {
+        axios 
+        .put(`http://localhost:3000/api/models/${updatedModel.id}`, updatedModel)
+        .then(response => {
+            axios 
+            .get(`http://localhost:3000/api/models`)
+            .then(response => {
+                this.setState({ models: response.data })
+            })
+            .catch(err => {
+                console.log("Fail to GET models from local server", err)
+            }) 
+        })
+        .catch(err => {
+            console.log("Fail to Update a Model from local server", err)
+        })
+    }
+
 
     render(){
         return (
             <div>
                 <div>
                     List of Models here:
-                    <ModelsList models={this.state.models} handleDeleteModel={this.handleDeleteModel}/>
+                    <ModelsList models={this.state.models} handleDeleteModel={this.handleDeleteModel}
+                        handleUpdateModel={this.handleUpdateModel}
+                    />
                 </div>
                 <div>
                     Create Models Here:
                     <CreateModel handleAddNewModel={this.handleAddNewModel} />
                 </div>
+
+              
+
+                {/* <div>
+                    Update Models Here:
+                    <UpdateModel handleUpdateModel={this.handleUpdateModel} />
+                </div> */}
             </div>
         )
     }

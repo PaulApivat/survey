@@ -12,7 +12,9 @@ class ModelsList extends React.Component {
             <div>
                 {this.props.models.map(model => {
                     return(
-                        <ModelView model={model} handleDeleteModel={this.props.handleDeleteModel}/>
+                        <ModelView model={model} handleDeleteModel={this.props.handleDeleteModel}
+                            handleUpdateModel={this.props.handleUpdateModel}
+                        />
                     )
                 })}
             </div>
