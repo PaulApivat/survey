@@ -12,7 +12,9 @@ class FeaturesList extends React.Component {
             <div>
                 {this.props.features.map(feature => {
                     return(
-                        <FeatureView feature={feature} />
+                        <FeatureView feature={feature} 
+                            handleDeleteFeature={this.props.handleDeleteFeature}
+                        />
                     )
                 })}
             </div>

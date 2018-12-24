@@ -41,6 +41,23 @@ class Features extends React.Component{
         })
     }
 
+    handleDeleteFeature = id => {
+        axios 
+        .delete(`http://localhost:3000/api/features/${id}`)
+        .then(response => {
+            axios 
+            .get(`http://localhost:3000/api/features`)
+            .then(response => {
+                this.setState({ features: response.data })
+            })
+            .catch(err => {
+                console.log("Fail to GET Features from local server", err)
+            })
+        })
+        .catch(err => {
+            console.log("Fail to Delete Features, for a model, from local server", err)
+        })
+    }
 
 
     render(){
@@ -48,7 +65,9 @@ class Features extends React.Component{
             <div>
                 <div>
                     Features here:
-                    <FeaturesList features={this.state.features} />
+                    <FeaturesList features={this.state.features} 
+                        handleDeleteFeature={this.handleDeleteFeature}
+                    />
                 </div>
                 <div>
                     Create Features Here:
