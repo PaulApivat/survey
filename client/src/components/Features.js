@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios';
 
+import FeaturesList from './FeaturesList'
+
 class Features extends React.Component{
     constructor(){
         super();
@@ -20,15 +22,31 @@ class Features extends React.Component{
         })
     }
 
+    handleAddNewFeature = feature => {
+        axios 
+        .post(`http://localhost:3000/api/features`, feature)
+        .then(response => {
+            axios 
+            .get(`http://localhost:3000/api/features`)
+            .then(response => {
+                this.setState({ features: response.data })
+            })
+            .catch(err => {
+                console.log("Fail to GET Features from local server", err)
+            })
+        })
+        .catch(err => {
+            console.log("Fail to Add new Features, for a model, to local server", err)
+        })
+    }
+
+
+
     render(){
         return (
             <div>
                 Features here:
-                {this.state.features.map(feature => {
-                    return(
-                        <h1> {feature.model_id} </h1>
-                    )
-                })}
+                <FeaturesList features={this.state.features} />
             </div>
         )
     }
