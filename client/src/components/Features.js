@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios';
 
 import FeaturesList from './FeaturesList'
+import CreateFeature from './CreateFeature'
 
 class Features extends React.Component{
     constructor(){
@@ -45,8 +46,14 @@ class Features extends React.Component{
     render(){
         return (
             <div>
-                Features here:
-                <FeaturesList features={this.state.features} />
+                <div>
+                    Features here:
+                    <FeaturesList features={this.state.features} />
+                </div>
+                <div>
+                    Create Features Here:
+                    <CreateFeature handleAddNewFeature={this.handleAddNewFeature}/>
+                </div>
             </div>
         )
     }
