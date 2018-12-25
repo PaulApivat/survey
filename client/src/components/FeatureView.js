@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Link } from 'react-router-dom'
 
+import UpdateFeature from './UpdateFeature'
+
 // import RadarChart from 'react-svg-radar-chart';
 // import 'react-svg-radar-chart/build/css/index.css'
 
@@ -26,6 +28,7 @@ class FeatureView extends React.Component {
                 <p> Speed: {this.props.feature.speed} </p>
                 <p> Weight: {this.props.feature.weight} </p> 
                 <div onClick={this.handleDelete}> <Link to="/features"> Delete </Link> </div>
+                <UpdateFeature handleUpdateFeature={this.props.handleUpdateFeature} feature={this.props.feature} />
             </div> 
         )
     }

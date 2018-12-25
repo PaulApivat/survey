@@ -59,13 +59,31 @@ class Features extends React.Component{
         })
     }
 
+    handleUpdateFeature = updatedFeature => {
+        axios 
+        .put(`http://localhost:3000/api/features/${updatedFeature.id}`, updatedFeature)
+        .then(response => {
+            axios 
+            .get(`http://localhost:3000/api/features`)
+            .then(response => {
+                this.setState({ features: response.data })
+            })
+            .catch(err => {
+                console.log("Fail to GET Features from local server", err)
+            })
+        })
+        .catch(err => {
+            console.log("Fail to Update the Features, for a model, from local server", err)
+        })
+    }
+
 
     render(){
         return (
             <div>
                 <div>
                     Features here:
-                    <FeaturesList features={this.state.features} 
+                    <FeaturesList features={this.state.features} handleUpdateFeature={this.handleUpdateFeature}
                         handleDeleteFeature={this.handleDeleteFeature}
                     />
                 </div>
