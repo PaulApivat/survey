@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios';
 
-import { Link } from 'react-router-dom';
-
 import RadarChart from 'react-svg-radar-chart';
 import 'react-svg-radar-chart/build/css/index.css'
 
@@ -10,7 +8,6 @@ class Survey extends React.Component {
     constructor(){
         super();
         this.state = {
-            //features: [],
             data: {
                 battery: 0.7,        //0.7
                 design: 0.8,          //0.8
@@ -23,37 +20,35 @@ class Survey extends React.Component {
         }
     }
 
-    // componentDidMount(){
-    //     axios 
-    //     .get(`http://localhost:3000/api/features`)
-    //     .then(response => {
-    //         this.setState({ features: response.data })
-    //     })
-    //     .catch(err => {
-    //         console.log("Fail to GET Features from local server", err)
+    handleChange = event => {
+        event.preventDefault();
+        const { name, value } = event.target;
+        console.log("submitted");
+        this.setState(({ data }) => ({
+            data: { ...data, [name]: parseFloat(value) } //required to update NESTED 'data' object
+        }));
+    };
+
+    // handleChange = event => {
+    //     event.preventDefault();
+    //     this.setState({
+    //         [event.target.name]: event.target.value,
     //     })
     // }
 
-    handleChange = event => {
-        event.preventDefault();
-        this.setState({
-            [event.target.name]: event.target.value,
-        })
-    }
-
     // handleSubmit = event => {
     //     event.preventDefault();
-    //     //this.props.handleAddNewFeature(this.state)
-    //     const { battery, design, useful, speed, weight } = this.state.data2.data;
+    //     const { battery, design, useful, speed, weight } = this.state.data;
     //     axios.post('/', { battery, design, useful, speed, weight })
     //     .then(response => {
-    //         this.setState({ data: this.state.data2 })
+    //         this.setState({ data: response.data })
     //     });
     // }
 
 
+
     render(){
-      
+    
         const data2 = [this.state]
 
         // const data2 = [
@@ -108,6 +103,7 @@ class Survey extends React.Component {
                                 <input
                                     placeholder="Battery"
                                     type="number"
+                                    step="0.05"
                                     name="battery"
                                     value={this.state.data.battery}
                                     onChange={this.handleChange}
@@ -115,6 +111,7 @@ class Survey extends React.Component {
                                 <input
                                     placeholder="Design"
                                     type="number"
+                                    step="0.05"
                                     name="design"
                                     value={this.state.data.design}
                                     onChange={this.handleChange}
@@ -122,6 +119,7 @@ class Survey extends React.Component {
                                 <input
                                     placeholder="Useful"
                                     type="number"
+                                    step="0.05"
                                     name="useful"
                                     value={this.state.data.useful}
                                     onChange={this.handleChange}
@@ -129,6 +127,7 @@ class Survey extends React.Component {
                                 <input
                                     placeholder="Speed"
                                     type="number"
+                                    step="0.05"
                                     name="speed"
                                     value={this.state.data.speed}
                                     onChange={this.handleChange}
@@ -136,6 +135,7 @@ class Survey extends React.Component {
                                 <input
                                     placeholder="Weight"
                                     type="number"
+                                    step="0.05"
                                     name="weight"
                                     value={this.state.data.weight}
                                     onChange={this.handleChange}
