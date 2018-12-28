@@ -6,6 +6,7 @@ import About from './components/About';
 import Models from './components/Models';
 import Features from './components/Features';
 import Survey from './components/Survey';
+import Questionnaire from './components/Questionnaire';
 
 import { Route, Link } from 'react-router-dom'
 
@@ -29,6 +30,7 @@ class App extends Component {
             <li> <Link to="/models">Models</Link></li>
             <li> <Link to="/features">Features</Link></li>
             <li> <Link to="/survey">Survey</Link></li>
+          <li> <Link to="/questionnaire">Questionnaire</Link></li>
             <li>Logout</li>
           </ul>
         </header>
@@ -51,8 +53,12 @@ class App extends Component {
             render={props => <Features/>}
           />
 
-           <Route path="/survey"
+          <Route path="/survey"
             render={props => <Survey/>}
+          />
+
+           <Route path="/questionnaire"
+            render={props => <Questionnaire/>}
           />
 
 
