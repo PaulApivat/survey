@@ -9,11 +9,11 @@ class Survey extends React.Component {
         super();
         this.state = {
             data: {
-                battery: 0.7,        //0.7
-                design: 0.8,          //0.8
-                useful: 0.9,         //0.9
-                speed: 0.67,         //0.67
-                weight: 0.8          //0.8
+                battery: 0,        //0.7
+                design: 0,          //0.8
+                useful: 0,         //0.9
+                speed: 0,         //0.67
+                weight: 0          //0.8
                 },
             meta: { color: 'blue' 
             }
