@@ -55,8 +55,30 @@ server.post('/api/features', (req , res) => {
     } else {
         res.status(400).json({message: "status 400: missing model_id or one other model description"})
     }
-
 });
+
+// INSERT INTO data
+server.post('/api/data', (req, res) => {
+    const data = req.body;
+    console.log('data info', data)
+
+    if (data.battery && data.design && data.useful && data.speed && data.weight) {
+
+    db('data').insert(data)
+    .then(ids => {
+        res.status(201).json(ids);
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({err: "Failed to insert Data"});
+    })
+
+    } else {
+        res.status(400).json({message: "status 400: missing data description"})
+    }
+});
+
+
 
 
 // GET /api/models
@@ -85,6 +107,22 @@ server.get('/api/features', (req , res) => {
         res.status(500).json({err: "Fail to find features"});
     })
 })
+
+// GET /api/data
+// SELECT * FROM data
+server.get('/api/data', (req, res) => {
+    db('data')
+    .then(rows => {
+        res.json(rows)
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({err: "Fail to find data"});
+    })
+})
+
+
+
 
 // GET /api/models/:id
 // SELECT * FROM models WHERE id = '2'

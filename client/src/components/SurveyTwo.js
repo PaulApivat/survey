@@ -1,28 +1,53 @@
 import React from 'react'
-import axios from 'axios';
+//import axios from 'axios';
 
 import RadarChart from 'react-svg-radar-chart';
 import 'react-svg-radar-chart/build/css/index.css'
 
+// no default values
+// Utility functions (could use something from Ramda/Lodash)
+const isObject = x => typeof x === "object";
+const mergeRight = (o, p) =>
+  o
+    ? Object.keys(o).reduce(
+        (acc, key) => ({
+          ...acc,
+          [key]: !p[key]
+            ? o[key]
+            : isObject(o[key])
+            ? mergeRight(o[key], p[key])
+            : p[key] || o[key]
+        }),
+        {}
+      )
+    : p;
+
 class SurveyTwo extends React.Component {
-    constructor(){
-        super();
-        this.state = {
+    state = {
+            data: {}
+    }
+
+    render(){
+        const { battery, design, useful, speed, weight } = this.state.data;
+
+        // This is necessary to have valid fallback data
+        // for the RadarChart component
+        const defaultData = {
             data: {
                 battery: 0,
                 design: 0,
                 useful: 0,
                 speed: 0,
                 weight: 0
-                },
-            meta: { color: 'red'
+            },
+            meta: {
+                color: "blue"
                 }
-        }
-    }
+            };
 
-    render(){
-        const data = [this.state]
-
+        // This will use the values from state where there are any
+        // otherwise fall back to defaultData
+        const data = [mergeRight(defaultData, this.state)];
         const captions = {
             // columns
             battery: 'Battery',
@@ -31,6 +56,9 @@ class SurveyTwo extends React.Component {
             speed: 'Speed',
             weight: 'Weight'
         };
+
+        // This will set a default step to increment the number inputs
+        const step = "0.02";
 
         return (
             <div>
@@ -47,41 +75,41 @@ class SurveyTwo extends React.Component {
                                 <input
                                     placeholder="Battery"
                                     type="number"
-                                    step="0.05"
+                                    step={step}
                                     name="battery"
-                                    value={this.state.data.battery}
+                                    value={battery}
                                     onChange={this.handleChange}
                                 />
                                 <input
                                     placeholder="Design"
                                     type="number"
-                                    step="0.05"
+                                    step={step}
                                     name="design"
-                                    value={this.state.data.design}
+                                    value={design}
                                     onChange={this.handleChange}
                                 />
                                 <input
                                     placeholder="Useful"
                                     type="number"
-                                    step="0.05"
+                                    step={step}
                                     name="useful"
-                                    value={this.state.data.useful}
+                                    value={useful}
                                     onChange={this.handleChange}
                                 />
                                 <input
                                     placeholder="Speed"
                                     type="number"
-                                    step="0.05"
+                                    step={step}
                                     name="speed"
-                                    value={this.state.data.speed}
+                                    value={speed}
                                     onChange={this.handleChange}
                                 />
                                 <input
                                     placeholder="Weight"
                                     type="number"
-                                    step="0.05"
+                                    step={step}
                                     name="weight"
-                                    value={this.state.data.weight}
+                                    value={weight}
                                     onChange={this.handleChange}
                                 />
                                 <button type="submit">Submit</button>
