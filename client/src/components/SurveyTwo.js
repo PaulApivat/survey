@@ -1,8 +1,10 @@
 import React from 'react'
 import axios from 'axios';
 
-import RadarChart from 'react-svg-radar-chart';
-import 'react-svg-radar-chart/build/css/index.css'
+
+
+import SurveyTwoList from './SurveyTwoList';
+import RadarChartX from './RadarChartX';
 
 // no default values
 // Utility functions (could use something from Ramda/Lodash)
@@ -26,15 +28,7 @@ class SurveyTwo extends React.Component {
     constructor(){
         super();
         this.state = {
-            data: {
-                battery: 0,
-                design: 0,
-                useful: 0,
-                speed: 0,
-                weight: 0
-            },
-            meta: {color: 'red'
-            }
+            data: []
         }
     }
 
@@ -55,6 +49,7 @@ class SurveyTwo extends React.Component {
     }
 
     render(){
+        console.log(this.state.data)
         //const { battery, design, useful, speed, weight } = this.state.data;
 
         // This is necessary to have valid fallback data
@@ -76,31 +71,29 @@ class SurveyTwo extends React.Component {
         // otherwise fall back to defaultData
         //const data = [mergeRight(defaultData, this.state)];
 
-        const data = [this.state]
+        //const data = [this.state]
 
-        const captions = {
-            // columns
-            battery: 'Battery',
-            design: 'Design',
-            useful: 'Usefulness',
-            speed: 'Speed',
-            weight: 'Weight'
-        };
+        // const data = this.state.data
+
+       
 
         // This will set a default step to increment the number inputs
-        const step = "0.05";
+        //const step = "0.05";
 
         return (
             <div>
+              
+
                 <div>
-                    <RadarChart
-                        captions={captions}
-                        data={data}
-                        size={400}
-                    />
+                    Here Goes:
+                    <SurveyTwoList data={this.state.data}/>
                 </div>
 
                 <div>
+                    <RadarChartX data={this.state.data}/>
+                </div>
+
+                {/* <div>
                         <form handleSubmit={this.handleSubmit}>  
                                 <input
                                     placeholder="Battery"
@@ -152,7 +145,8 @@ class SurveyTwo extends React.Component {
                     {this.state.data.useful}
                     {this.state.data.speed}
                     {this.state.data.weight}
-                </div>
+                </div> */}
+
 
             </div>
         )
